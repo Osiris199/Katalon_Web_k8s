@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+  labels:
+    app: android-emulator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: android-emulator
+  template:
+    metadata:
+      labels:
+        app: android-emulator
+    spec:
+      containers:
+        # VNC Container
+        - name: vnc
+          image: vaibhavx7/android-emulator:latest
+          resources:
+            requests:
+              memory: "1Gi"
+            limits:
+              memory: "2Gi" 
+          ports:
+          - containerPort: 5900
+          args:
+            - bash
+            - -c
+            - |
+              ./start_vnc.sh && tail -f /dev/null
+          env:
+            - name: VNC_PASSWORD
+              value: "vaibhav"
+          securityContext:
+              privileged: true
+          stdin: true
+          tty: true
+        # Katalon Android Container
+        - name: android-emulator
+          image: vaibhavx7/android-emulator:latest
+          resources:
+            requests:
+              memory: "4Gi"
+            limits:
+              memory: "8Gi" 
+          ports:
+          - containerPort: 5901
+          args:
+            - bash
+            - -c
+            - |
+              ./emulator_headed_mode.sh && tail -f /dev/null
+          env:
+            - name: APPIUM_PORT
+              value: "4725"
+            - name: VNC_PASSWORD
+              value: "vaibhav"
+          securityContext:
+              privileged: true
+          stdin: true
+          tty: true

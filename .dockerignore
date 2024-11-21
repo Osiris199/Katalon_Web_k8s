@@ -1,0 +1,34 @@
+.github
+README.md
+allure-results
+coverage
+.gitignore
+docker-compose.yml
+Jenkinsfile
+useful
+Dockerfile
+test-compose.yml
+allure_service.sh
+.gradle
+
+appium.log
+
+Checkpoints
+
+bin
+
+Reports
+
+Test Cases/OtherCases
+Test Cases/CommonTestCases/SwitchDevice
+
+Libs
+
+output
+
+!output/.gitkeep
+build
+
+.classpath
+
+.project
