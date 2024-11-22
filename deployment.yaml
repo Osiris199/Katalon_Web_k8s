@@ -3,21 +3,21 @@ kind: Deployment
 metadata:
   name: deployment
   labels:
-    app: android-emulator
+    app: web-browser
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: android-emulator
+      app: web-browser
   template:
     metadata:
       labels:
-        app: android-emulator
+        app: web-browser
     spec:
       containers:
         # VNC Container
         - name: vnc
-          image: vaibhavx7/android-emulator:latest
+          image: vaibhavx7/web-browser:latest
           resources:
             requests:
               memory: "1Gi"
@@ -38,8 +38,8 @@ spec:
           stdin: true
           tty: true
         # Katalon Android Container
-        - name: android-emulator
-          image: vaibhavx7/android-emulator:latest
+        - name: web-browser
+          image: vaibhavx7/web-browser:latest
           resources:
             requests:
               memory: "4Gi"

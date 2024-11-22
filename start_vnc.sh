@@ -4,7 +4,7 @@ main_function() {
     xvfb
     window_manager_fluxbox
     vnc_server
-    printf "Welcome to android-emulator VNC""\n"
+    printf "Welcome to Web browser Test VNC""\n"
 }
 
 xvfb(){

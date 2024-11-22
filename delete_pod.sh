@@ -50,7 +50,7 @@ check_suite_status() {
 delete_pod() {
   copy_reports
   kubectl delete deployment deployment -n default
-  kubectl delete service android-service
+  kubectl delete service web-service
   kubectl delete service vnc-service
   echo "Pod Deleted"
 }
@@ -68,7 +68,7 @@ copy_reports() {
     DELAY=60
 
     for ((i=0; i<$RETRIES; i++)); do
-        if kubectl cp $POD_NAME:/empresa/Reports/. -c android-emulator /home/siddhatech/Reports; then
+        if kubectl cp $POD_NAME:/empresa/Reports/. -c web-browser /home/siddhatech/Reports; then
             echo "Files transferred to /home/siddhatech/Reports path on local machine."
             return 0
         else

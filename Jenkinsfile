@@ -3,8 +3,8 @@ pipeline {
   environment {
     HOME = "${env.WORKSPACE}"
     MY_SECRET_KEY = credentials('Katalon_API_key')
-    imageCheck = sh(script: 'docker search --format "{{.Name}}" vaibhavx7/android-emulator', returnStdout: true).trim()
-    dockerimagename = "vaibhavx7/android-emulator"
+    imageCheck = sh(script: 'docker search --format "{{.Name}}" vaibhavx7/web-browser', returnStdout: true).trim()
+    dockerimagename = "vaibhavx7/web-browser"
     dockerImage = ""
   }
   
@@ -24,7 +24,7 @@ pipeline {
     stage('SCM Checkout') {
       steps{
         script {
-	  git branch: 'master', credentialsId: 'Github_cred', url: 'https://github.com/Osiris199/Katalon_Emulator_k8s.git'
+	  git branch: 'master', credentialsId: 'Github_cred', url: 'https://github.com/Osiris199/Katalon_Web_k8s.git'
         }
       }
     }
@@ -32,12 +32,12 @@ pipeline {
     stage('Build image') {
        when {
 	        expression {
-	           return !(env.imageCheck == "vaibhavx7/android-emulator")
+	           return !(env.imageCheck == "vaibhavx7/web-browser")
 	        }
         } 
 	steps {
                script {
-          	   dockerImage = docker.build(dockerimagename, "--build-arg TEST_SUITE=\"${params.TEST_SUITE}\" --build-arg TYPE_OF_TEST=\"${params.TYPE_OF_TEST}\" --build-arg API_KEY=\"${params.API_KEY}\" --build-arg EXEC_PROFILE=\"${params.EXEC_PROFILE}\" --build-arg PROJECT_NAME=\"${params.PROJECT_NAME}\" -f ${env.WORKSPACE}/Dockerfile_Android .")
+          	   dockerImage = docker.build(dockerimagename, "--build-arg TEST_SUITE=\"${params.TEST_SUITE}\" --build-arg TYPE_OF_TEST=\"${params.TYPE_OF_TEST}\" --build-arg API_KEY=\"${params.API_KEY}\" --build-arg EXEC_PROFILE=\"${params.EXEC_PROFILE}\" --build-arg PROJECT_NAME=\"${params.PROJECT_NAME}\" -f ${env.WORKSPACE}/Dockerfile_Web .")
         	}
         }
     }
@@ -48,7 +48,7 @@ pipeline {
        }
        when {
 	        expression {
-	           return !(env.imageCheck == "vaibhavx7/android-emulator")
+	           return !(env.imageCheck == "vaibhavx7/web-browser")
 	        }
         }
 	steps {
@@ -66,7 +66,7 @@ pipeline {
 		sh "whoami"
 	        withCredentials([file(credentialsId: 'Kubeconfig_file', variable: 'KUBECONFIG')]) {
     	        sh '''minikube kubectl -- apply -f deployment.yaml'''
-		sh '''minikube kubectl -- apply -f android-service.yaml'''
+		sh '''minikube kubectl -- apply -f web-service.yaml'''
                 sh '''minikube kubectl -- apply -f vnc-service.yaml'''
 		sh '''minikube kubectl -- apply -f hpa.yaml'''
           }

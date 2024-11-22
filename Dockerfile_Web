@@ -12,7 +12,7 @@ ARG ARCH="x86_64"
 ARG TARGET="google_apis_playstore"  
 ARG API_LEVEL="32" 
 ARG BUILD_TOOLS="33.0.2"
-ARG KATALON_VERSION="8.6.8"
+ARG KATALON_VERSION="8.6.9"
 ARG ANDROID_API_LEVEL="android-${API_LEVEL}"
 ARG ANDROID_APIS="${TARGET};${ARCH}"
 ARG EMULATOR_PACKAGE="system-images;${ANDROID_API_LEVEL};${ANDROID_APIS}"
@@ -77,8 +77,8 @@ RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.d
 
 COPY . /
 
-RUN chmod a+x emulator_headed_mode.sh && \
-    chmod a+x emulator_headless_mode.sh && \
+RUN chmod a+x web_headed_mode.sh && \
+    chmod a+x web_headless_mode.sh && \
     chmod a+x start_vnc.sh && \
     chmod 777 portforward_vnc.sh && \
     chmod 777 delete_pod.sh
