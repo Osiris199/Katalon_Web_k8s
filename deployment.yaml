@@ -51,7 +51,7 @@ spec:
             - bash
             - -c
             - |
-              ./emulator_headed_mode.sh && tail -f /dev/null
+              ./web_headed_mode.sh && tail -f /dev/null
           env:
             - name: APPIUM_PORT
               value: "4725"
