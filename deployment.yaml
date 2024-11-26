@@ -37,7 +37,7 @@ spec:
               privileged: true
           stdin: true
           tty: true
-        # Katalon Android Container
+        # Katalon Web Container
         - name: web-browser
           image: vaibhavx7/web-browser:latest
           resources:
