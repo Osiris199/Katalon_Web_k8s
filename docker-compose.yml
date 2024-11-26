@@ -1,6 +1,6 @@
 version: "3"
 services:
-# Launch emulator and appium instance
+# Launch Web tests and appium instance
   web-service:
     image: web-browser
     build:
@@ -8,7 +8,7 @@ services:
 
     ports:
       - 4725:4725
-    container_name: android
+    container_name: web
     depends_on:
       - VNC-Service
     environment:
