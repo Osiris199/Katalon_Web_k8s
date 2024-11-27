@@ -18,7 +18,7 @@ services:
       - bash
       - -c
       - | 
-         ./emulator_headed_mode.sh
+         ./web_headed_mode.sh
          tail -f /dev/null
     tty: true
     stdin_open: true
@@ -28,7 +28,7 @@ services:
     build:
       dockerfile: Dockerfile_Web
     ports:
-      - 5900:5900
+      - 5901:5901
     container_name: VNC-Service
     environment: 
       VNC_PASSWORD: vaibhav
