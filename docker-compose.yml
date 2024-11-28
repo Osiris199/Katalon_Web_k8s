@@ -5,7 +5,6 @@ services:
     image: web-browser
     build:
       dockerfile: Dockerfile_Web
-
     ports:
       - 4725:4725
     container_name: web
