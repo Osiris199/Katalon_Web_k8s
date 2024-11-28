@@ -17,8 +17,7 @@ services:
       - bash
       - -c
       - | 
-         ./web_headed_mode.sh
-         tail -f /dev/null
+         ./web_headed_mode.sh && tail -f /dev/null
     tty: true
     stdin_open: true
 # Starting VNC server
@@ -36,7 +35,6 @@ services:
       - bash
       - -c
       - |
-        ./start_vnc.sh
-         tail -f /dev/null
+        ./start_vnc.sh && tail -f /dev/null
     tty: true
     stdin_open: true
